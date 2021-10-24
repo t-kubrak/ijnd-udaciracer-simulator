@@ -5,5 +5,9 @@ This project is part of the
 
 ##Usage
 
-1. `yarn install` or `npm install`
-2. `yarn start` or `npm start`
+1. Start the API Server
+   - Mac `ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-osx`
+   - Windows `ORIGIN_ALLOWED=http://localhost:3000 ./bin/server.exe`
+   - Linux `ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-linux`
+2. `yarn && yarn start` or `npm install && npm start`
+3. Open http://localhost:3000
