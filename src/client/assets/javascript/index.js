@@ -4,7 +4,7 @@
 var store = {
 	track: undefined,
 	player_id: undefined,
-	race_id: undefined,
+	race: undefined,
 }
 
 // We need our javascript to wait until the DOM is loaded
@@ -163,9 +163,9 @@ function handleSelectTrack(target) {
 	store.track = { id: target.id, name: target.innerText }
 }
 
-function handleAccelerate() {
+async function handleAccelerate() {
 	console.log("accelerate button clicked")
-	// TODO - Invoke the API call to accelerate
+	await accelerate(store.race.ID-1)
 }
 
 // HTML VIEWS ------------------------------------------------
@@ -368,7 +368,9 @@ function startRace(id) {
 }
 
 function accelerate(id) {
-	// POST request to `${SERVER}/api/races/${id}/accelerate`
-	// options parameter provided as defaultFetchOpts
-	// no body or datatype needed for this request
+	return fetch(`${SERVER}/api/races/${id}/accelerate`, {
+		method: 'POST',
+		...defaultFetchOpts(),
+	})
+	.catch(err => console.log("Problem with accelerate request::", err))
 }
