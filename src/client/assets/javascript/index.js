@@ -2,8 +2,8 @@
 
 // The store will hold all information needed globally
 var store = {
-	track_id: undefined,
-	player_id: undefined,
+	track: undefined,
+	player: undefined,
 	race_id: undefined,
 }
 
@@ -74,14 +74,14 @@ async function delay(ms) {
 
 // This async function controls the flow of the race, add the logic and error handling
 async function handleCreateRace() {
+	const { player, track } = store
+
 	// render starting UI
-	renderAt('#race', renderRaceStartView())
+	renderAt('#race', renderRaceStartView(track))
 
-	// TODO - Get player_id and track_id from the store
-	
-	// const race = TODO - invoke the API call to create the race, then save the result
+	const race = createRace(player.id, track.id)
 
-	// TODO - update the store with the race id
+	store.race = race
 
 	// The race has been created, now start the countdown
 	// TODO - call the async function runCountdown
@@ -144,7 +144,7 @@ function handleSelectPodRacer(target) {
 	// add class selected to current target
 	target.classList.add('selected')
 
-	// TODO - save the selected racer to the store
+	store.player = { id: target.id };
 }
 
 function handleSelectTrack(target) {
@@ -159,8 +159,7 @@ function handleSelectTrack(target) {
 	// add class selected to current target
 	target.classList.add('selected')
 
-	// TODO - save the selected track id to the store
-	
+	store.track = { id: target.id, name: target.innerText }
 }
 
 function handleAccelerate() {
